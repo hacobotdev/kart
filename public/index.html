@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mario Kart Board Game</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Bangers&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div id="app">
+        <!-- Login Screen -->
+        <div id="login-screen" class="screen active">
+            <div class="card glass-panel">
+                <h1 class="logo-text">MARIO KART</h1>
+                <p>Ingresa tu nombre para correr!</p>
+                <input type="text" id="username" placeholder="Nombre" autocomplete="off" maxlength="12">
+                <button id="join-btn" class="btn primary">INGRESAR</button>
+            </div>
+        </div>
+
+        <!-- Lobby Screen -->
+        <div id="lobby-screen" class="screen">
+            <div class="glass-panel wide-panel lobby-panel">
+                <header class="lobby-header">
+                    <div id="user-display"></div>
+                    <button id="create-room-btn" class="btn secondary btn-sm">Crear sala</button>
+                </header>
+
+                <div class="lobby-content">
+                    <div class="room-list-container">
+                        <ul id="room-list">
+                            <li class="empty-message">No hay salas disponibles</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Character Selection Screen -->
+        <div id="char-selection-screen" class="screen">
+            <div class="glass-panel char-selection-panel">
+                <h1 class="logo-text">ELIGE TU PERSONAJE</h1>
+                <div id="char-grid" class="char-grid">
+                    <!-- Characters will be injected here -->
+                </div>
+                <div class="char-info">
+                    <p id="char-status">Esperando a los demás jugadores...</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Game Screen -->
+        <div id="game-screen" class="screen">
+            <div class="game-container">
+                <!-- Board Area -->
+                <div id="board-container" class="board-container">
+                    <!-- Spaces 0-49 will be injected here -->
+                    <div class="center-controls">
+                        <div id="game-status-text" class="status-msg">Turno de: Player 1</div>
+                        <div class="dice-display" id="dice-display">
+                            <div class="die">?</div>
+                            <div class="die">?</div>
+                        </div>
+                        <div class="controls-row">
+                            <button id="roll-dice-btn" class="btn primary big-btn">Lanzar Dados</button>
+                            <button id="use-item-btn" class="btn item-btn hidden">Usar Ítem</button>
+                            <button id="skip-item-btn" class="btn secondary hidden">Terminar Turno</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bottom Stats Panel -->
+                <div class="bottom-stats-panel" id="bottom-stats-panel">
+                    <!-- Player status cards will be injected here -->
+                </div>
+            </div>
+
+            <!-- Host Menu (Floating) -->
+            <div class="host-controls">
+                <button id="game-menu-btn" class="btn icon-btn">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="3" y1="12" x2="21" y2="12"></line>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <line x1="3" y1="18" x2="21" y2="18"></line>
+                    </svg>
+                </button>
+                <div id="game-menu-dropdown" class="menu-dropdown">
+                    <button id="menu-restart-game" class="menu-item">Reiniciar</button>
+                    <button id="menu-end-session" class="menu-item danger">Terminar</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Waiting Room (Inside Game) -->
+        <div id="waiting-room" class="screen">
+            <div class="waiting-room glass-panel">
+                <h2>SALA DE ESPERA</h2>
+                <p id="waiting-player-count">Jugadores: 0 / 10</p>
+                <div id="waiting-player-list" class="player-list-grid"></div>
+                <button id="lobby-start-btn" class="btn primary big-btn hidden">COMENZAR</button>
+                <p class="host-msg hidden" id="waiting-host-msg">Eres el anfitrión. Comienza cuando todos estén listos!</p>
+                <p class="guest-msg" id="waiting-guest-msg">Esperando que el anfitrión comience...</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="toast-container"></div>
+
+    <!-- Modals -->
+    <div id="end-session-modal" class="modal-overlay hidden">
+        <div class="modal-box glass-panel">
+            <h3>¿Terminar juego?</h3>
+            <p>Se cerrará la sala y volverás al lobby.</p>
+            <div class="modal-actions">
+                <button id="cancel-end-btn" class="btn secondary">No</button>
+                <button id="confirm-end-btn" class="btn danger">Si</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="client.js"></script>
+</body>
+
+</html>

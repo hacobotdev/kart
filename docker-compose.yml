@@ -1,0 +1,11 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "42073:42073"
+    volumes:
+      - .:/app
+      - /app/node_modules
+    command: npm start
